@@ -1,42 +1,68 @@
+// src/Components/ListaTareas.jsx
 import React from 'react';
+import { Checkbox, Button, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
+import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 
 const ListaTareas = ({ tareas, alEditar, alCompletar, alBorrar }) => {
   return (
-    <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
-      <thead>
-        <tr>
-          <th style={{ textAlign: 'left', padding: '1rem' }}></th>
-          <th style={{ textAlign: 'left', padding: '1rem' }}>Responsable</th>
-          <th style={{ textAlign: 'left', padding: '1rem' }}>Tarea</th>
-          <th style={{ textAlign: 'left', padding: '1rem' }}>Prioridad</th>
-          <th style={{ textAlign: 'left', paddingRight: '4rem', padding: '1rem' }}>Fecha</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
+    <Table variant="simple">
+      <Thead>
+        <Tr>
+          <Th></Th>
+          <Th>Responsable</Th>
+          <Th>Tarea</Th>
+          <Th>Prioridad</Th>
+          <Th>Fecha</Th>
+          <Th></Th>
+        </Tr>
+      </Thead>
+      <Tbody>
         {tareas.map((tarea, indice) => (
-          <tr key={indice} style={{ borderBottom: '.5px solid #ddd' }}>
-            <td>
-              <input
-                type="checkbox"
-                checked={tarea.completada}
+          <Tr key={indice}>
+            <Td>
+              <Checkbox
+                isChecked={tarea.completada}
                 onChange={() => alCompletar(indice)}
               />
-            </td>
-            <td style={{ paddingRight: '4rem', paddingLeft: '1rem' }}>{tarea.nombre}</td>
-            <td style={{ paddingRight: '5rem', textDecoration: `${tarea.completada ? 'line-through' : 'none'}`, textDecorationColor: 'red' }}>
+            </Td>
+            <Td>{tarea.nombre}</Td>
+            <Td
+              textDecoration={tarea.completada ? 'line-through' : 'none'}
+              color={tarea.completada ? 'gray.500' : 'inherit'}
+            >
               {tarea.tarea}
-            </td>
-            <td style={{ textDecoration: `${tarea.completada ? 'line-through' : 'none'}`, textDecorationColor: 'red' }}>{tarea.prioridad}</td>
-            <td>{tarea.fechaCreacion}</td>
-            <td>
-              <button onClick={() => alEditar(indice)}>Editar</button>
-              <button onClick={() => alBorrar(indice)}>Borrar</button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+            </Td>
+            <Td
+              textDecoration={tarea.completada ? 'line-through' : 'none'}
+              color={tarea.completada ? 'gray.500' : 'inherit'}
+            >
+              {tarea.prioridad}
+            </Td>
+            <Td>{tarea.fechaCreacion}</Td>
+            <Td>
+              <Button
+                variant="ghost"
+                colorScheme="teal"
+                size="sm"
+                onClick={() => alEditar(indice)}
+              >
+                <EditIcon />
+              </Button>
+              <Button
+                variant="ghost"
+                colorScheme="red"
+                size="sm"
+                onClick={() => alBorrar(indice)}
+              >
+                <DeleteIcon />
+              </Button>
+            </Td>
+          </Tr>
+        )
+      )
+    }
+      </Tbody>
+    </Table>
   );
 };
 

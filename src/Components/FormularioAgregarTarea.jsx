@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Input, Button, Select, FormControl, FormLabel, VStack } from '@chakra-ui/react';
 
 const FormularioAgregarTarea = ({ alAgregarTarea }) => {
   const [nombre, setNombre] = useState('');
@@ -30,31 +31,25 @@ const FormularioAgregarTarea = ({ alAgregarTarea }) => {
 
   return (
     <form onSubmit={manejarEnviarFormulario} className="formulario-tarea">
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-        <label style={{ width: '100px', marginRight: '10px' }}>Responsable:</label>
-        <input
-          type="text"
-          value={nombre}
-          onChange={manejarCambioNombre}
-        />
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-        <label style={{ width: '100px', marginRight: '10px' }}>Tarea:</label>
-        <input
-          type="text"
-          value={tarea}
-          onChange={manejarCambioTarea}
-        />
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-        <label style={{ width: '100px', marginRight: '10px' }}>Prioridad:</label>
-        <select value={prioridad} onChange={manejarCambioPrioridad}>
-          <option value="Alta">Alta</option>
-          <option value="Media">Media</option>
-          <option value="Baja">Baja</option>
-        </select>
-      </div>
-      <button type="submit">Agregar</button>
+      <VStack spacing="4">
+        <FormControl>
+          <FormLabel>Responsable:</FormLabel>
+          <Input type="text" value={nombre} onChange={manejarCambioNombre} />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Tarea:</FormLabel>
+          <Input type="text" value={tarea} onChange={manejarCambioTarea} />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Prioridad:</FormLabel>
+          <Select value={prioridad} onChange={manejarCambioPrioridad}>
+            <option value="Alta">Alta</option>
+            <option value="Media">Media</option>
+            <option value="Baja">Baja</option>
+          </Select>
+        </FormControl>
+        <Button type="submit">Agregar</Button>
+      </VStack>
     </form>
   );
 };
